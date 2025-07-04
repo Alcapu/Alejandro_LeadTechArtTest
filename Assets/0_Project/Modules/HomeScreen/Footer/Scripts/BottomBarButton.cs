@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
     public class BottomBarButton : MonoBehaviour
     {
+        private static readonly int LockedAnimatorProperty = Animator.StringToHash("Locked");
+        private static readonly int SelectedAnimatorProperty = Animator.StringToHash("Selected");
+
         [Header("Components")]
         [SerializeField] private Animator _animator;
         [SerializeField] private Button _button;
@@ -35,13 +38,13 @@ using UnityEngine.UI;
         {
             _locked = locked;
             _button.interactable = _locked == false;
-            _animator.SetBool("Locked", _locked);
+            _animator.SetBool(LockedAnimatorProperty, _locked);
         }
 
         public void SetSelect(bool selected)
         {
             _selected = selected;
-            _animator.SetBool("Selected", _selected);
+            _animator.SetBool(SelectedAnimatorProperty, _selected);
         }
     }
 
