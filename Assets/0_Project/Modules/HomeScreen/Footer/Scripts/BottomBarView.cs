@@ -16,6 +16,11 @@ using UnityEngine;
 
         void Start()
         {
+            Initialize();
+        }
+
+        private void Initialize()
+        {
             if (_defaultSelection != null)
             {
                 OnButtonClickedEvent(_defaultSelection);
@@ -25,8 +30,8 @@ using UnityEngine;
                 _selectionIndicator.SetActive(false);
             }
         }
-
-        void OnEnable()
+        
+        private void OnEnable()
         {
             foreach (var btn in _bottomBarButtons)
             {
@@ -34,7 +39,7 @@ using UnityEngine;
             }
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             foreach (var btn in _bottomBarButtons)
             {
