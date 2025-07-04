@@ -9,6 +9,10 @@ using UnityEngine;
         [SerializeField] private GameObject _selectionIndicator;
         [SerializeField] private BottomBarButton _defaultSelection;
         [SerializeField] private List<BottomBarButton> _bottomBarButtons;
+        
+        [Header("Transition Parameters")]
+        [SerializeField] private float _transitionDuration = 0.25f;
+        [SerializeField] private Ease _transitionEaseType = Ease.OutSine;
 
         //Internal
         private BottomBarButton _buttonSelected;
@@ -86,7 +90,6 @@ using UnityEngine;
             AnimateIndicatorToSelected();
         }
 
-
         private void AnimateIndicatorToSelected()
         {
             if (_buttonSelected == null || _currentSelection == _buttonSelected)
@@ -95,10 +98,11 @@ using UnityEngine;
             }
 
             _currentSelection = _buttonSelected;
-
+            
             _selectionIndicator.SetActive(true);
             _selectionIndicator.transform.DOKill();
-            _selectionIndicator.transform.DOMoveX(_currentSelection.transform.position.x, .25f).SetEase(Ease.OutSine).OnComplete(() =>
+            _selectionIndicator.transform.DOMoveX(_currentSelection.transform.position.x, _transitionDuration)
+                .SetEase(_transitionEaseType).OnComplete(() =>
             {
                 _selectionIndicator.transform.position = new Vector3(_currentSelection.transform.position.x,
                                                             _selectionIndicator.transform.position.y,
