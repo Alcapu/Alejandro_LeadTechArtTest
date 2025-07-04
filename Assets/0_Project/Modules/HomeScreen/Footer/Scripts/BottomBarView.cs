@@ -12,7 +12,7 @@ using UnityEngine;
 
         //Internal
         private BottomBarButton _buttonSelected;
-        private GameObject _currentSlot;
+        private BottomBarButton _currentSelection;
 
         void Start()
         {
@@ -64,7 +64,7 @@ using UnityEngine;
         private void DeselectAllButtons()
         {
             _buttonSelected = null;
-            _currentSlot = null;
+            _currentSelection = null;
 
             foreach (var btn in _bottomBarButtons)
             {
@@ -89,17 +89,18 @@ using UnityEngine;
 
         private void AnimateIndicatorToSelected()
         {
-            if (_buttonSelected == null) return;
+            if (_buttonSelected == null || _currentSelection == _buttonSelected)
+            {
+                return;
+            }
 
-            if (_currentSlot == _buttonSelected.gameObject) return;
-
-            _currentSlot = _buttonSelected.gameObject;
+            _currentSelection = _buttonSelected;
 
             _selectionIndicator.SetActive(true);
             _selectionIndicator.transform.DOKill();
-            _selectionIndicator.transform.DOMoveX(_currentSlot.transform.position.x, .25f).SetEase(Ease.OutSine).OnComplete(() =>
+            _selectionIndicator.transform.DOMoveX(_currentSelection.transform.position.x, .25f).SetEase(Ease.OutSine).OnComplete(() =>
             {
-                _selectionIndicator.transform.position = new Vector3(_currentSlot.transform.position.x,
+                _selectionIndicator.transform.position = new Vector3(_currentSelection.transform.position.x,
                                                             _selectionIndicator.transform.position.y,
                                                             _selectionIndicator.transform.position.z);
             });
