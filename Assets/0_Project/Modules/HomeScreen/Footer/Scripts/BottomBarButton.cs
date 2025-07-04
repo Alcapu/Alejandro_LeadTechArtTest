@@ -7,9 +7,9 @@ using UnityEngine.UI;
     public class BottomBarButton : MonoBehaviour
     {
         [Header("Components")]
-        [SerializeField] private Animator animator;
-        [SerializeField] private Button footerBtn;
-        [SerializeField] private bool lockOnAwake;
+        [SerializeField] private Animator _animator;
+        [SerializeField] private Button _button;
+        [SerializeField] private bool _lockOnAwake;
 
         [Header("Events")]
         public UnityEvent<BottomBarButton> OnButtonClickedEvent;
@@ -20,33 +20,28 @@ using UnityEngine.UI;
 
         void Awake()
         {
-            SetLock(lockOnAwake);
+            SetLock(_lockOnAwake);
         }
 
         void Start()
         {
-            footerBtn.onClick.AddListener(() =>
+            _button.onClick.AddListener(() =>
             {
                 OnButtonClickedEvent?.Invoke(this);
             });
         }
 
-        public void SetLock(
-            bool locked)
+        public void SetLock(bool locked)
         {
             _locked = locked;
-
-            footerBtn.interactable = _locked == false;
-
-            animator.SetBool("Locked", _locked);
+            _button.interactable = _locked == false;
+            _animator.SetBool("Locked", _locked);
         }
 
-        public void SetSelect(
-            bool selected)
+        public void SetSelect(bool selected)
         {
             _selected = selected;
-
-            animator.SetBool("Selected", _selected);
+            _animator.SetBool("Selected", _selected);
         }
     }
 

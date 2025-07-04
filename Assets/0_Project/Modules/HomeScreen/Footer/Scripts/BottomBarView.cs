@@ -6,9 +6,9 @@ using UnityEngine;
     public class BottomBarView : MonoBehaviour
     {
         [Header("Components")]
-        [SerializeField] private GameObject indicator;
-        [SerializeField] private BottomBarButton startSelected;
-        [SerializeField] private List<BottomBarButton> footerButtons;
+        [SerializeField] private GameObject _selectionIndicator;
+        [SerializeField] private BottomBarButton _defaultSelection;
+        [SerializeField] private List<BottomBarButton> _bottomBarButtons;
 
         //Internal
         private BottomBarButton _buttonSelected;
@@ -16,19 +16,19 @@ using UnityEngine;
 
         void Start()
         {
-            if (startSelected != null)
+            if (_defaultSelection != null)
             {
-                OnButtonClickedEvent(startSelected);
+                OnButtonClickedEvent(_defaultSelection);
             }
             else
             {
-                indicator.SetActive(false);
+                _selectionIndicator.SetActive(false);
             }
         }
 
         void OnEnable()
         {
-            foreach (var btn in footerButtons)
+            foreach (var btn in _bottomBarButtons)
             {
                 btn.OnButtonClickedEvent.AddListener(OnButtonClickedEvent);
             }
@@ -36,36 +36,35 @@ using UnityEngine;
 
         void OnDisable()
         {
-            foreach (var btn in footerButtons)
+            foreach (var btn in _bottomBarButtons)
             {
                 btn.OnButtonClickedEvent.RemoveListener(OnButtonClickedEvent);
             }
         }
 
-
         private void OnButtonClickedEvent(
             BottomBarButton buttonClicked)
         {
-            if (footerButtons.Contains(buttonClicked))
+            if (_bottomBarButtons.Contains(buttonClicked))
             {
                 if (_buttonSelected == buttonClicked)
                 {
                     _buttonSelected = null;
                     _currentSlot = null;
 
-                    foreach (var btn in footerButtons)
+                    foreach (var btn in _bottomBarButtons)
                     {
                         btn.SetSelect(false);
                     }
 
-                    indicator.SetActive(false);
+                    _selectionIndicator.SetActive(false);
 
                     return;
                 }
 
                 _buttonSelected = buttonClicked;
 
-                foreach (var btn in footerButtons)
+                foreach (var btn in _bottomBarButtons)
                 {
                     btn.SetSelect(_buttonSelected == btn);
                 }
@@ -82,13 +81,13 @@ using UnityEngine;
 
             _currentSlot = _buttonSelected.gameObject;
 
-            indicator.SetActive(true);
-            indicator.transform.DOKill();
-            indicator.transform.DOMoveX(_currentSlot.transform.position.x, .25f).SetEase(Ease.OutSine).OnComplete(() =>
+            _selectionIndicator.SetActive(true);
+            _selectionIndicator.transform.DOKill();
+            _selectionIndicator.transform.DOMoveX(_currentSlot.transform.position.x, .25f).SetEase(Ease.OutSine).OnComplete(() =>
             {
-                indicator.transform.position = new Vector3(_currentSlot.transform.position.x,
-                                                            indicator.transform.position.y,
-                                                            indicator.transform.position.z);
+                _selectionIndicator.transform.position = new Vector3(_currentSlot.transform.position.x,
+                                                            _selectionIndicator.transform.position.y,
+                                                            _selectionIndicator.transform.position.z);
             });
         }
     }
