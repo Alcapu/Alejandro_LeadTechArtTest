@@ -42,38 +42,47 @@ using UnityEngine;
             }
         }
 
-        private void OnButtonClickedEvent(
-            BottomBarButton buttonClicked)
+        private void OnButtonClickedEvent(BottomBarButton clickedButton)
         {
-            if (_bottomBarButtons.Contains(buttonClicked))
+            if (!_bottomBarButtons.Contains(clickedButton)) return;
+           
+            var wasAlreadySelected = _buttonSelected == clickedButton;
+
+            if (wasAlreadySelected)
             {
-                if (_buttonSelected == buttonClicked)
-                {
-                    _buttonSelected = null;
-                    _currentSlot = null;
-
-                    foreach (var btn in _bottomBarButtons)
-                    {
-                        btn.SetSelect(false);
-                    }
-
-                    _selectionIndicator.SetActive(false);
-
-                    return;
-                }
-
-                _buttonSelected = buttonClicked;
-
-                foreach (var btn in _bottomBarButtons)
-                {
-                    btn.SetSelect(_buttonSelected == btn);
-                }
-
-                MoveIndicator();
+                DeselectAllButtons();
+                return;
             }
+            SelectButton(clickedButton);
+        }
+        
+        private void DeselectAllButtons()
+        {
+            _buttonSelected = null;
+            _currentSlot = null;
+
+            foreach (var btn in _bottomBarButtons)
+            {
+                btn.SetSelect(false);
+            }
+
+            _selectionIndicator.SetActive(false);
+        }
+        
+        private void SelectButton(BottomBarButton button)
+        {
+            _buttonSelected = button;
+
+            foreach (var btn in _bottomBarButtons)
+            {
+                btn.SetSelect(btn == _buttonSelected);
+            }
+
+            AnimateIndicatorToSelected();
         }
 
-        private void MoveIndicator()
+
+        private void AnimateIndicatorToSelected()
         {
             if (_buttonSelected == null) return;
 
