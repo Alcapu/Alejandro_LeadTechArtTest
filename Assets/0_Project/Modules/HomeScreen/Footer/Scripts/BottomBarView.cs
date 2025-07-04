@@ -99,12 +99,14 @@ using UnityEngine;
 
             _currentSelection = _buttonSelected;
             
+            var targetX = _currentSelection.transform.position.x;
+            
             _selectionIndicator.SetActive(true);
             _selectionIndicator.transform.DOKill();
-            _selectionIndicator.transform.DOMoveX(_currentSelection.transform.position.x, _transitionDuration)
+            _selectionIndicator.transform.DOMoveX(targetX, _transitionDuration)
                 .SetEase(_transitionEaseType).OnComplete(() =>
             {
-                _selectionIndicator.transform.position = new Vector3(_currentSelection.transform.position.x,
+                _selectionIndicator.transform.position = new Vector3(targetX,
                                                             _selectionIndicator.transform.position.y,
                                                             _selectionIndicator.transform.position.z);
             });

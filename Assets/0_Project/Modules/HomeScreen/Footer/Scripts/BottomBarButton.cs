@@ -2,8 +2,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-
-
     public class BottomBarButton : MonoBehaviour
     {
         private static readonly int LockedAnimatorProperty = Animator.StringToHash("Locked");
