@@ -91,6 +91,7 @@ public class BottomBarView : MonoBehaviour
             btn.SetSelect(btn == _buttonSelected);
         }
 
+        _selectionIndicator.SetActive(true);
         AnimateIndicatorToTarget(_currentSelection.transform);
     }
 
@@ -98,7 +99,6 @@ public class BottomBarView : MonoBehaviour
     {
         var targetX = target.position.x;
 
-        _selectionIndicator.SetActive(true);
         _selectionIndicator.transform.DOKill();
         _selectionIndicator.transform.DOMoveX(targetX, _transitionDuration)
             .SetEase(_transitionEaseType)
