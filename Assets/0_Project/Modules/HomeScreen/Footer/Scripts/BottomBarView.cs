@@ -84,25 +84,19 @@ public class BottomBarView : MonoBehaviour
     private void SelectButton(BottomBarButton button)
     {
         _buttonSelected = button;
+        _currentSelection = _buttonSelected;
 
         foreach (var btn in _bottomBarButtons)
         {
             btn.SetSelect(btn == _buttonSelected);
         }
 
-        AnimateIndicatorToSelected();
+        AnimateIndicatorToTarget(_currentSelection.transform);
     }
 
-    private void AnimateIndicatorToSelected()
+    private void AnimateIndicatorToTarget(Transform target)
     {
-        if (_buttonSelected == null || _currentSelection == _buttonSelected)
-        {
-            return;
-        }
-
-        _currentSelection = _buttonSelected;
-
-        var targetX = _currentSelection.transform.position.x;
+        var targetX = target.position.x;
 
         _selectionIndicator.SetActive(true);
         _selectionIndicator.transform.DOKill();
