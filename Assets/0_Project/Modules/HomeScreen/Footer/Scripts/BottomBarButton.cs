@@ -21,15 +21,12 @@ using UnityEngine.UI;
 
         void Awake()
         {
-            SetLock(_lockOnAwake);
-        }
-
-        void Start()
-        {
             _button.onClick.AddListener(() =>
             {
                 OnButtonClickedEvent?.Invoke(this);
             });
+            
+            SetLock(_lockOnAwake);
         }
 
         public void SetLock(bool locked)
