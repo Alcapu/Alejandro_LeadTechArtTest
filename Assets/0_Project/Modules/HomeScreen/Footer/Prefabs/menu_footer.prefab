@@ -95,6 +95,8 @@ MonoBehaviour:
   - {fileID: 5465648401885407284}
   - {fileID: 8577689127938053096}
   - {fileID: 5512118607911714653}
+  _transitionDuration: 0.25
+  _transitionEaseType: 3
 --- !u!95 &5891058677154664669
 Animator:
   serializedVersion: 7
@@ -367,6 +369,10 @@ PrefabInstance:
     - target: {fileID: 4027025800306884057, guid: 38f0353c9618de948a3b5159312d56d9, type: 3}
       propertyPath: m_Name
       value: FooterButton_RightFeature
+      objectReference: {fileID: 0}
+    - target: {fileID: 6688488515099975100, guid: 38f0353c9618de948a3b5159312d56d9, type: 3}
+      propertyPath: _lockOnAwake
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8988832675941203167, guid: 38f0353c9618de948a3b5159312d56d9, type: 3}
       propertyPath: m_Pivot.x
@@ -707,6 +713,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1053102398953249389}
     m_Modifications:
+    - target: {fileID: 304581948069452029, guid: c89c149dd68812c43b23eae4a9c1ff43, type: 3}
+      propertyPath: _lockOnAwake
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2618527368659827102, guid: c89c149dd68812c43b23eae4a9c1ff43, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
